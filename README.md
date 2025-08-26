@@ -1,2 +1,85 @@
 # Escape Room Velora
 Sumérgete en un escape room interactivo desde tu navegador. Estás en un antiguo observatorio y tienes 30 minutos para completar tres desafíos: abrir el domo, encender el telescopio y finalmente desbloquear la bóveda.
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escape Room: Observatorio Nocturno</title>
+  <style>
+    body { margin:0; font-family: system-ui, sans-serif; background: linear-gradient(to bottom, #0f172a, #000); color:#e2e8f0; }
+    .container{ max-width:800px; margin:auto; padding:20px; }
+    h1,h2,h3{ color:#fff; }
+    .card{ background: rgba(30,41,59,0.6); border:1px solid #334155; border-radius:1rem; padding:20px; margin-bottom:20px; }
+    input{ width:100%; padding:10px; border-radius:.75rem; border:1px solid #475569; background: rgba(15,23,42,0.7); color:#fff; font-family: monospace; }
+    button{ background:#1e293b; border:none; color:#fff; padding:8px 12px; border-radius:.75rem; cursor:pointer; margin-top:8px; }
+    button:hover{ background:#334155; }
+    .hint{ font-size:.9em; opacity:.8; margin-top:8px; }
+    .hidden{ display:none; }
+  </style>
+</head>
+<body>
+<div class="container">
+<h1>🔭 Observatorio nocturno</h1>
+<p>Escape room online. Tienes 30 minutos para resolver los candados y abrir la bóveda.</p>
+
+<div id="step1" class="card">
+<h2>1) Abrir el domo</h2>
+<p>Lee este poema y observa las primeras letras de cada verso:</p>
+<pre>
+Luces del domo se apagan y el silencio crece.
+Un susurro de engranajes rasga la penumbra.
+No hay reloj que mida el brillo de las órbitas.
+Alza la vista: la primera clave te saluda.
+</pre>
+<input id="input1" placeholder="_ _ _ _">
+<button onclick="check1()">Probar</button>
+<div id="hint1" class="hint hidden">Pista: lee la primera letra de cada verso.</div>
+<button onclick="showHint('hint1')">Mostrar pista</button>
+</div>
+
+<div id="step2" class="card hidden">
+<h2>2) Encender el telescopio</h2>
+<p>Mensaje cifrado con César +3:</p>
+<pre>HVWUHOOD</pre>
+<input id="input2" placeholder="palabra en mayúsculas">
+<button onclick="check2()">Probar</button>
+<div id="hint2" class="hint hidden">Pista: desplaza cada letra 3 posiciones atrás.</div>
+<button onclick="showHint('hint2')">Mostrar pista</button>
+</div>
+
+<div id="step3" class="card hidden">
+<h2>3) Abrir la bóveda</h2>
+<p>Fíjate en la primera letra de cada frase:</p>
+<pre>
+Para avanzar, recuerda lo que el domo te enseñó.
+Observa el cielo: cada pista llevó a la siguiente.
+Rompiste el silencio con una palabra de luz.
+Te queda dar el nombre del paso oculto.
+Abre la mente y verás la ruta.
+La clave está al inicio de cada frase.
+</pre>
+<input id="input3" placeholder="_ _ _ _ _ _">
+<button onclick="check3()">Probar</button>
+<div id="hint3" class="hint hidden">Pista: toma la primera letra de cada frase.</div>
+<button onclick="showHint('hint3')">Mostrar pista</button>
+</div>
+
+<div id="win" class="card hidden">
+<h2>🎉 ¡Bóveda abierta!</h2>
+<p>Has completado el escape room.</p>
+<p id="summary"></p>
+<p>Código de victoria: <code>ORION-PORTAL-2025</code></p>
+</div>
+</div>
+
+<script>
+let step=1,hints=0,seconds=30*60;
+function showHint(id){ document.getElementById(id).classList.remove('hidden'); hints++; }
+function check1(){ if(document.getElementById('input1').value.trim().toUpperCase()==='LUNA'){ document.getElementById('step1').classList.add('hidden'); document.getElementById('step2').classList.remove('hidden'); }else alert('No es correcto'); }
+function check2(){ if(document.getElementById('input2').value.trim().toUpperCase()==='ESTRELLA'){ document.getElementById('step2').classList.add('hidden'); document.getElementById('step3').classList.remove('hidden'); }else alert('No es correcto'); }
+function check3(){ if(document.getElementById('input3').value.trim().toUpperCase()==='PORTAL'){ document.getElementById('step3').classList.add('hidden'); document.getElementById('win').classList.remove('hidden'); const used=30*60-seconds; const m=Math.floor(used/60); const s=used%60; document.getElementById('summary').textContent=`Tiempo invertido: ${m}m ${s}s | Pistas usadas: ${hints}`;}else alert('No es correcto'); }
+setInterval(()=>{ if(seconds>0)seconds--; const m=String(Math.floor(seconds/60)).padStart(2,'0'); const s=String(seconds%60).padStart(2,'0'); document.getElementById('timer').textContent=`⏱️ Tiempo: ${m}:${s}`; if(seconds===0) alert('Se acabó el tiempo'); },1000);
+</script>
+</body>
+</html>
