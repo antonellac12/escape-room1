@@ -70,23 +70,23 @@
 
   <!-- Nivel 1 -->
   <div id="step1" class="card">
-    <h2>1) Descubre la clave en el feedback</h2>
-    <p>Primera letra de cada frase:</p>
-    <pre>
-Datos son el inicio de cada decisión.
-Análisis profundos piden nuestros clientes.
-Transformación digital es lo que buscan.
-Automatización es la meta.
-    </pre>
-    <input id="input1" placeholder="Respuesta en mayúsculas">
+    <h2>1) Resuelve el acertijo matemático</h2>
+    <p>
+      Un número de 3 cifras.<br>
+      • La suma de sus dígitos es 9.<br>
+      • El dígito de las centenas es el doble del de las unidades.<br>
+      • El dígito de las decenas es la mitad de las centenas.<br>
+      ¿Cuál es el número?
+    </p>
+    <input id="input1" placeholder="Respuesta en números">
     <button onclick="check1()">Probar</button>
   </div>
 
   <!-- Nivel 2 -->
   <div id="step2" class="card hidden">
     <h2>2) Descifra el mensaje</h2>
-    <p>Texto cifrado con César +1:</p>
-    <pre>BJ</pre>
+    <p>Texto cifrado con César +3:</p>
+    <pre>DLHQ</pre>
     <input id="input2" placeholder="Respuesta en mayúsculas">
     <button onclick="check2()">Probar</button>
   </div>
@@ -94,8 +94,8 @@ Automatización es la meta.
   <!-- Nivel 3 -->
   <div id="step3" class="card hidden">
     <h2>3) Une las piezas</h2>
-    <p>Ordena las partes para formar la palabra:</p>
-    <pre>CLI - ENTE</pre>
+    <p>Ordena los fragmentos para formar la palabra:</p>
+    <pre>TE - CLI - EN - TO</pre>
     <input id="input3" placeholder="Respuesta en mayúsculas">
     <button onclick="check3()">Probar</button>
   </div>
@@ -118,7 +118,6 @@ Automatización es la meta.
 </div>
 
 <script>
-  let hints = 0;
   let seconds = 30*60;
 
   function updateTimer(){
@@ -131,8 +130,8 @@ Automatización es la meta.
   setInterval(updateTimer,1000);
 
   function check1(){
-    const val = document.getElementById('input1').value.trim().toUpperCase();
-    if(val==="DATA"){
+    const val = document.getElementById('input1').value.trim();
+    if(val==="234"){
       document.getElementById('step1').classList.add('hidden');
       document.getElementById('step2').classList.remove('hidden');
     } else {
@@ -173,3 +172,4 @@ Automatización es la meta.
 </script>
 </body>
 </html>
+
