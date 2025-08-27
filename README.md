@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Escape Room Velora</title>
+  <title>Escape Room Velora — Versión Final</title>
   <style>
     body {
       margin: 0;
@@ -52,7 +52,6 @@
       margin-bottom: 20px;
     }
     .hidden { display: none; }
-    .success { border-color: #10b981; }
     img.logo {
       max-width: 160px;
       margin: 20px auto;
@@ -73,9 +72,9 @@
     <h2>1) Resuelve el acertijo matemático</h2>
     <p>
       Un número de 3 cifras.<br>
-      • La suma de sus dígitos es 9.<br>
-      • El dígito de las centenas es el doble del de las unidades.<br>
-      • El dígito de las decenas es la mitad de las centenas.<br>
+      • La suma de sus dígitos es <strong>13</strong>.<br>
+      • El dígito de las centenas es <strong>el doble</strong> del de las unidades.<br>
+      • El dígito de las decenas es <strong>una unidad más</strong> que el de las unidades.<br>
       ¿Cuál es el número?
     </p>
     <input id="input1" placeholder="Respuesta en números">
@@ -84,9 +83,9 @@
 
   <!-- Nivel 2 -->
   <div id="step2" class="card hidden">
-    <h2>2) Descifra el mensaje</h2>
-    <p>Texto cifrado con César +3:</p>
-    <pre>DLHQ</pre>
+    <h2>2) Descifra el mensaje (Cifrado César +3)</h2>
+    <p>Texto cifrado (César +3):</p>
+    <pre>HPSOHDGR</pre>
     <input id="input2" placeholder="Respuesta en mayúsculas">
     <button onclick="check2()">Probar</button>
   </div>
@@ -95,7 +94,7 @@
   <div id="step3" class="card hidden">
     <h2>3) Une las piezas</h2>
     <p>Ordena los fragmentos para formar la palabra:</p>
-    <pre>TE - CLI - EN - TO</pre>
+    <pre>ING - RES - O</pre>
     <input id="input3" placeholder="Respuesta en mayúsculas">
     <button onclick="check3()">Probar</button>
   </div>
@@ -129,33 +128,40 @@
   }
   setInterval(updateTimer,1000);
 
+  // Nivel 1: respuesta correcta 643
   function check1(){
     const val = document.getElementById('input1').value.trim();
-    if(val==="234"){
+    if(val==="643"){
       document.getElementById('step1').classList.add('hidden');
       document.getElementById('step2').classList.remove('hidden');
     } else {
-      alert("No es correcto");
+      alert("No es correcto. Revisa las condiciones del acertijo.");
     }
   }
+
+  // Nivel 2: descifrar HPSOHDGR => EMPLEADO
   function check2(){
     const val = document.getElementById('input2').value.trim().toUpperCase();
-    if(val==="AI"){
+    if(val==="EMPLEADO"){
       document.getElementById('step2').classList.add('hidden');
       document.getElementById('step3').classList.remove('hidden');
     } else {
-      alert("No es correcto");
+      alert("No es correcto. Intenta descifrar con César (-3).");
     }
   }
+
+  // Nivel 3: ordenar fragmentos => INGRESO
   function check3(){
     const val = document.getElementById('input3').value.trim().toUpperCase();
-    if(val==="CLIENTE"){
+    if(val==="INGRESO"){
       document.getElementById('step3').classList.add('hidden');
       document.getElementById('step4').classList.remove('hidden');
     } else {
-      alert("No es correcto");
+      alert("No es correcto. Ordena los fragmentos para formar la palabra.");
     }
   }
+
+  // Nivel 4: confirmación final => ONBOARDING
   function check4(){
     const val = document.getElementById('input4').value.trim().toUpperCase();
     if(val==="ONBOARDING"){
@@ -166,10 +172,9 @@
       const s = used%60;
       document.getElementById('summary').textContent = `Tiempo invertido: ${m}m ${s}s`;
     } else {
-      alert("No es correcto");
+      alert("No es correcto. Escribe la palabra final exactamente.");
     }
   }
 </script>
 </body>
 </html>
-
