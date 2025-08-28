@@ -79,7 +79,7 @@
         • El dígito de las decenas es <strong>una unidad más</strong> que el de las unidades.<br>
         ¿Cuál es el número?
       </p>
-      <input id="input1" placeholder="Respuesta en números (ej. 643)" inputmode="numeric" />
+      <input id="input1" placeholder="Respuesta en números" inputmode="numeric" />
       <button onclick="check1()">Probar</button>
     </div>
 
@@ -88,7 +88,7 @@
       <h2>2) Descifra el mensaje (Cifrado César +3)</h2>
       <p>Texto cifrado (César +3):</p>
       <pre>HPSOHDGR</pre>
-      <input id="input2" placeholder="Respuesta en mayúsculas (ej. EMPLEADO)" />
+      <input id="input2" placeholder="Respuesta en mayúsculas" />
       <button onclick="check2()">Probar</button>
     </div>
 
@@ -97,7 +97,7 @@
       <h2>3) Ordena las letras (anagrama)</h2>
       <p>Reordena las siguientes letras para formar una palabra:</p>
       <pre>OIESGNR</pre>
-      <input id="input3" placeholder="Respuesta en mayúsculas (ej. INGRESO)" />
+      <input id="input3" placeholder="Respuesta en mayúsculas" />
       <button onclick="check3()">Probar</button>
     </div>
 
@@ -105,7 +105,7 @@
     <div id="step4" class="card hidden">
       <h2>4) La funcionalidad final</h2>
       <p>Has llegado al último reto. Escribe la palabra que representa la nueva funcionalidad de Velora.</p>
-      <input id="input4" placeholder="Respuesta en mayúsculas (ej. ONBOARDING)" />
+      <input id="input4" placeholder="Respuesta en mayúsculas" />
       <button onclick="check4()">Probar</button>
     </div>
 
@@ -132,7 +132,6 @@
     }
     setInterval(updateTimer, 1000);
 
-    // Nivel 1: respuesta correcta 643
     function check1(){
       const val = document.getElementById('input1').value.trim();
       if(val === "643"){
@@ -143,7 +142,6 @@
       }
     }
 
-    // Nivel 2: descifrar HPSOHDGR => EMPLEADO
     function check2(){
       const val = document.getElementById('input2').value.trim().toUpperCase();
       if(val === "EMPLEADO"){
@@ -154,7 +152,6 @@
       }
     }
 
-    // Nivel 3: anagrama OIESGNR => INGRESO
     function check3(){
       const val = document.getElementById('input3').value.trim().toUpperCase();
       if(val === "INGRESO"){
@@ -165,7 +162,6 @@
       }
     }
 
-    // Nivel 4: confirmación final => ONBOARDING
     function check4(){
       const val = document.getElementById('input4').value.trim().toUpperCase();
       if(val === "ONBOARDING"){
