@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Escape Room Velora — Versión Final</title>
   <style>
     body {
@@ -35,6 +35,7 @@
       color: #E2BC6F;
       font-family: monospace;
       margin-top: 8px;
+      box-sizing: border-box;
     }
     button {
       background: #E2BC6F;
@@ -57,124 +58,127 @@
       margin: 20px auto;
       display: block;
     }
+    pre { background: rgba(255,255,255,0.02); padding: 12px; border-radius: 8px; overflow-x:auto; }
   </style>
 </head>
 <body>
-<div class="container">
-  <img src="Velora_Isotipo_Blanco.png" alt="Velora" class="logo">
-  <h1>🔐 Escape Room Velora</h1>
-  <p>Bienvenido. Tienes 30 minutos para descubrir la nueva funcionalidad de Velora.</p>
+  <div class="container">
+    <img src="Velora_Isotipo_Blanco.png" alt="Velora" class="logo">
+    <h1>🔐 Escape Room Velora — Versión Final</h1>
+    <p>Bienvenido. Tienes 30 minutos para descubrir la nueva funcionalidad de Velora.</p>
 
-  <div id="timer">⏱️ Tiempo: 30:00</div>
+    <div id="timer">⏱️ Tiempo: 30:00</div>
 
-  <!-- Nivel 1 -->
-  <div id="step1" class="card">
-    <h2>1) Resuelve el acertijo matemático</h2>
-    <p>
-      Un número de 3 cifras.<br>
-      • La suma de sus dígitos es <strong>13</strong>.<br>
-      • El dígito de las centenas es <strong>el doble</strong> del de las unidades.<br>
-      • El dígito de las decenas es <strong>una unidad más</strong> que el de las unidades.<br>
-      ¿Cuál es el número?
-    </p>
-    <input id="input1" placeholder="Respuesta en números">
-    <button onclick="check1()">Probar</button>
+    <!-- Nivel 1 -->
+    <div id="step1" class="card">
+      <h2>1) Resuelve el acertijo matemático</h2>
+      <p>
+        Un número de 3 cifras.<br>
+        • La suma de sus dígitos es <strong>13</strong>.<br>
+        • El dígito de las centenas es <strong>el doble</strong> del de las unidades.<br>
+        • El dígito de las decenas es <strong>una unidad más</strong> que el de las unidades.<br>
+        ¿Cuál es el número?
+      </p>
+      <input id="input1" placeholder="Respuesta en números (ej. 643)" inputmode="numeric" />
+      <button onclick="check1()">Probar</button>
+    </div>
+
+    <!-- Nivel 2 -->
+    <div id="step2" class="card hidden">
+      <h2>2) Descifra el mensaje (Cifrado César +3)</h2>
+      <p>Texto cifrado (César +3):</p>
+      <pre>HPSOHDGR</pre>
+      <input id="input2" placeholder="Respuesta en mayúsculas (ej. EMPLEADO)" />
+      <button onclick="check2()">Probar</button>
+    </div>
+
+    <!-- Nivel 3 -->
+    <div id="step3" class="card hidden">
+      <h2>3) Ordena las letras (anagrama)</h2>
+      <p>Reordena las siguientes letras para formar una palabra:</p>
+      <pre>OIESGNR</pre>
+      <input id="input3" placeholder="Respuesta en mayúsculas (ej. INGRESO)" />
+      <button onclick="check3()">Probar</button>
+    </div>
+
+    <!-- Nivel 4 -->
+    <div id="step4" class="card hidden">
+      <h2>4) La funcionalidad final</h2>
+      <p>Has llegado al último reto. Escribe la palabra que representa la nueva funcionalidad de Velora.</p>
+      <input id="input4" placeholder="Respuesta en mayúsculas (ej. ONBOARDING)" />
+      <button onclick="check4()">Probar</button>
+    </div>
+
+    <!-- Victoria -->
+    <div id="win" class="card hidden">
+      <h2>🎉 ¡Funcionalidad descubierta!</h2>
+      <p>Has completado el escape room.</p>
+      <p id="summary"></p>
+      <p>Código de victoria: <code>VELORA-ONBOARDING-2026</code></p>
+    </div>
   </div>
 
-  <!-- Nivel 2 -->
-  <div id="step2" class="card hidden">
-    <h2>2) Descifra el mensaje (Cifrado César +3)</h2>
-    <p>Texto cifrado (César +3):</p>
-    <pre>HPSOHDGR</pre>
-    <input id="input2" placeholder="Respuesta en mayúsculas">
-    <button onclick="check2()">Probar</button>
-  </div>
+  <script>
+    let seconds = 30 * 60;
 
-  <!-- Nivel 3 -->
-  <div id="step3" class="card hidden">
-    <h2>3) Une las piezas</h2>
-    <p>Ordena los fragmentos para formar la palabra:</p>
-    <pre>ING - RES - O</pre>
-    <input id="input3" placeholder="Respuesta en mayúsculas">
-    <button onclick="check3()">Probar</button>
-  </div>
-
-  <!-- Nivel 4 -->
-  <div id="step4" class="card hidden">
-    <h2>4) La funcionalidad final</h2>
-    <p>Has llegado al último reto. Escribe la palabra que representa la nueva funcionalidad de Velora.</p>
-    <input id="input4" placeholder="Respuesta en mayúsculas">
-    <button onclick="check4()">Probar</button>
-  </div>
-
-  <!-- Victoria -->
-  <div id="win" class="card hidden">
-    <h2>🎉 ¡Funcionalidad descubierta!</h2>
-    <p>Has completado el escape room.</p>
-    <p id="summary"></p>
-    <p>Código de victoria: <code>VELORA-ONBOARDING-2026</code></p>
-  </div>
-</div>
-
-<script>
-  let seconds = 30*60;
-
-  function updateTimer(){
-    if (seconds > 0) seconds--;
-    const m = String(Math.floor(seconds/60)).padStart(2,'0');
-    const s = String(seconds%60).padStart(2,'0');
-    document.getElementById('timer').textContent = `⏱️ Tiempo: ${m}:${s}`;
-    if(seconds===0){ alert("Se acabó el tiempo"); }
-  }
-  setInterval(updateTimer,1000);
-
-  // Nivel 1: respuesta correcta 643
-  function check1(){
-    const val = document.getElementById('input1').value.trim();
-    if(val==="643"){
-      document.getElementById('step1').classList.add('hidden');
-      document.getElementById('step2').classList.remove('hidden');
-    } else {
-      alert("No es correcto. Revisa las condiciones del acertijo.");
+    function updateTimer(){
+      if (seconds > 0) seconds--;
+      const m = String(Math.floor(seconds/60)).padStart(2,'0');
+      const s = String(seconds%60).padStart(2,'0');
+      document.getElementById('timer').textContent = `⏱️ Tiempo: ${m}:${s}`;
+      if(seconds === 0){
+        alert("Se acabó el tiempo");
+      }
     }
-  }
+    setInterval(updateTimer, 1000);
 
-  // Nivel 2: descifrar HPSOHDGR => EMPLEADO
-  function check2(){
-    const val = document.getElementById('input2').value.trim().toUpperCase();
-    if(val==="EMPLEADO"){
-      document.getElementById('step2').classList.add('hidden');
-      document.getElementById('step3').classList.remove('hidden');
-    } else {
-      alert("No es correcto. Intenta descifrar con César (-3).");
+    // Nivel 1: respuesta correcta 643
+    function check1(){
+      const val = document.getElementById('input1').value.trim();
+      if(val === "643"){
+        document.getElementById('step1').classList.add('hidden');
+        document.getElementById('step2').classList.remove('hidden');
+      } else {
+        alert("No es correcto. Revisa las condiciones del acertijo.");
+      }
     }
-  }
 
-  // Nivel 3: ordenar fragmentos => INGRESO
-  function check3(){
-    const val = document.getElementById('input3').value.trim().toUpperCase();
-    if(val==="INGRESO"){
-      document.getElementById('step3').classList.add('hidden');
-      document.getElementById('step4').classList.remove('hidden');
-    } else {
-      alert("No es correcto. Ordena los fragmentos para formar la palabra.");
+    // Nivel 2: descifrar HPSOHDGR => EMPLEADO
+    function check2(){
+      const val = document.getElementById('input2').value.trim().toUpperCase();
+      if(val === "EMPLEADO"){
+        document.getElementById('step2').classList.add('hidden');
+        document.getElementById('step3').classList.remove('hidden');
+      } else {
+        alert("No es correcto. Intenta descifrar con César (-3).");
+      }
     }
-  }
 
-  // Nivel 4: confirmación final => ONBOARDING
-  function check4(){
-    const val = document.getElementById('input4').value.trim().toUpperCase();
-    if(val==="ONBOARDING"){
-      document.getElementById('step4').classList.add('hidden');
-      document.getElementById('win').classList.remove('hidden');
-      const used = 30*60 - seconds;
-      const m = Math.floor(used/60);
-      const s = used%60;
-      document.getElementById('summary').textContent = `Tiempo invertido: ${m}m ${s}s`;
-    } else {
-      alert("No es correcto. Escribe la palabra final exactamente.");
+    // Nivel 3: anagrama OIESGNR => INGRESO
+    function check3(){
+      const val = document.getElementById('input3').value.trim().toUpperCase();
+      if(val === "INGRESO"){
+        document.getElementById('step3').classList.add('hidden');
+        document.getElementById('step4').classList.remove('hidden');
+      } else {
+        alert("No es correcto. Intenta formar la palabra con las letras dadas.");
+      }
     }
-  }
-</script>
+
+    // Nivel 4: confirmación final => ONBOARDING
+    function check4(){
+      const val = document.getElementById('input4').value.trim().toUpperCase();
+      if(val === "ONBOARDING"){
+        document.getElementById('step4').classList.add('hidden');
+        document.getElementById('win').classList.remove('hidden');
+        const used = 30*60 - seconds;
+        const m = Math.floor(used/60);
+        const s = used%60;
+        document.getElementById('summary').textContent = `Tiempo invertido: ${m}m ${s}s`;
+      } else {
+        alert("No es correcto. Escribe la palabra final exactamente.");
+      }
+    }
+  </script>
 </body>
 </html>
